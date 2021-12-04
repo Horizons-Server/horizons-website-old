@@ -1,7 +1,5 @@
-import { serialize } from 'next-mdx-remote/serialize';
 import { resolver, NotFoundError } from 'blitz';
 import db from 'db';
-import matter from 'gray-matter';
 import { z } from 'zod';
 
 const GetPost = z.object({
@@ -17,17 +15,6 @@ export default resolver.pipe(
 
     if (!post) throw new NotFoundError();
 
-    const { content, data } = matter(post.content);
-
-    const md = await serialize(content, {
-      // Optionally pass remark/rehype plugins
-      mdxOptions: {
-        remarkPlugins: [],
-        rehypePlugins: [],
-      },
-      scope: data,
-    });
-
-    return { ...post, md };
+    return post;
   },
 );

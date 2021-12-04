@@ -18,6 +18,4 @@ const config: BlitzConfig = {
   */
 };
 
-const removeImports = require('next-remove-imports')();
-//module.exports = removeImports({});
-module.exports = removeImports(config);
+module.exports = config;

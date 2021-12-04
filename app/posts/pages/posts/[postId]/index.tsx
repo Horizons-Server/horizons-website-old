@@ -3,8 +3,7 @@ import { Head, Link, useRouter, useQuery, useParam, BlitzPage, useMutation, Rout
 import Layout from 'app/core/layouts/Layout';
 import getPost from 'app/posts/queries/getPost';
 import deletePost from 'app/posts/mutations/deletePost';
-import matter from 'gray-matter';
-import { MDXRemote } from 'next-mdx-remote';
+import ReactMarkdown from 'react-markdown';
 
 export const Post = () => {
   const router = useRouter();
@@ -21,8 +20,9 @@ export const Post = () => {
       <div className="flex flex-col items-center">
         <h1>Post {post.id}</h1>
         {/* <pre>{JSON.stringify(post, null, 2)}</pre> */}
-        <div className="w-1/5 prose md:prose-xl dark:prose-dark ">
-          <MDXRemote {...post.md} />
+        <div className="prose md:prose-xl dark:prose-dark">
+          {/* <div dangerouslySetInnerHTML={{ __html: markdown }}></div> */}
+          <ReactMarkdown>{`${post.content.replace('\\n', '\n')}`}</ReactMarkdown>
         </div>
 
         <Link href={Routes.EditPostPage({ postId: post.id })}>

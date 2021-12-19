@@ -9,6 +9,7 @@ export default resolver.pipe(
     const post = await db.post.update({
       where: { id },
       data: { ...data, userId: ctx.session.userId },
+      select: { user: true, content: true, id: true, title: true, image: true },
     });
 
     return post;

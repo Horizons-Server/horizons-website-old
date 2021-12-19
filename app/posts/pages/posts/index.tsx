@@ -3,11 +3,13 @@ import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes } from 'bli
 import Layout from 'app/core/layouts/Layout';
 import getPosts from 'app/posts/queries/getPosts';
 import PostCard from 'app/posts/components/PostCard';
+import { useCurrentUser } from 'app/core/hooks/useCurrentUser';
 
 const ITEMS_PER_PAGE = 10;
 
 export const PostsList = () => {
   const router = useRouter();
+  const user = useCurrentUser();
   const page = Number(router.query.page) || 0;
   const [{ posts, hasMore }] = usePaginatedQuery(getPosts, {
     orderBy: { id: 'asc' },
@@ -27,9 +29,11 @@ export const PostsList = () => {
         ))}
       </div>
       <div className="flex gap-2 mt-2">
-        <Link href={Routes.NewPostPage()}>
-          <button className="p-2 rounded-md shadow-md bg-horz-green">Create New Post</button>
-        </Link>
+        {user?.role === 'ADMIN' && (
+          <Link href={Routes.NewPostPage()}>
+            <button className="p-2 rounded-md shadow-md bg-horz-green">Create New Post</button>
+          </Link>
+        )}
         <button
           className="p-2 rounded-md shadow-md bg-horz-green"
           disabled={page === 0}

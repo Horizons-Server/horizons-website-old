@@ -1,62 +1,14 @@
 // tailwind.config.js
 module.exports = {
   mode: 'jit',
-  purge: ['{pages,app}/**/*.{js,ts,jsx,tsx}'],
+  content: ['{pages,app}/**/*.{js,ts,jsx,tsx}'],
   darkMode: 'media', // or 'media' or 'class'
   theme: {
     fontFamily: {
-      display: ['Montserrat', 'ui-sans-serif', 'system-ui'],
-      body: [
-        'Open\\ Sans',
-        'Ubuntu',
-        'ui-sans-serif',
-        ' system-ui',
-        '-apple-system',
-        'BlinkMacSystemFont',
-        'Segoe\\ UI',
-        'Roboto',
-        'Helvetica Neue',
-        'Arial',
-        'Noto\\ Sans',
-        'sans-serif',
-        'Apple\\ Color\\ Emoji',
-        'Segoe\\ UI\\ Emoji',
-        'Segoe\\ UI\\ Symbol',
-        'Noto\\ Color\\ Emoji',
-      ],
+      display: ['Montserrat', 'sans-serif'],
+      body: ['Open\\ Sans', 'sans-serif'],
     },
     extend: {
-      typography: (theme) => ({
-        dark: {
-          css: {
-            color: theme('colors.gray.300'),
-            '[class~="lead"]': { color: theme('colors.gray.400') },
-            a: { color: theme('colors.gray.100') },
-            strong: { color: theme('colors.gray.100') },
-            'ul > li::before': { backgroundColor: theme('colors.gray.700') },
-            hr: { borderColor: theme('colors.gray.800') },
-            blockquote: {
-              color: theme('colors.gray.100'),
-              borderLeftColor: theme('colors.gray.800'),
-            },
-            h1: { color: theme('colors.gray.100') },
-            h2: { color: theme('colors.gray.100') },
-            h3: { color: theme('colors.gray.100') },
-            h4: { color: theme('colors.gray.100') },
-            code: { color: theme('colors.gray.100') },
-            'a code': { color: theme('colors.gray.100') },
-            pre: {
-              color: theme('colors.gray.200'),
-              backgroundColor: theme('colors.gray.800'),
-            },
-            thead: {
-              color: theme('colors.gray.100'),
-              borderBottomColor: theme('colors.gray.700'),
-            },
-            'tbody tr': { borderBottomColor: theme('colors.gray.800') },
-          },
-        },
-      }),
       colors: {
         'horz-green': {
           DEFAULT: '#144d29',

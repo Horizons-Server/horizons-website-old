@@ -19,7 +19,7 @@ export const fetchRoles = async ({ userId }: { userId: string }) => {
   });
 
   const roles = guildUser.roles.cache.map(({ name }) => name);
-
+  console.log(roles);
   client.destroy();
 
   return roles;

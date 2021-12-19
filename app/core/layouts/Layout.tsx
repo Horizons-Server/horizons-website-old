@@ -9,7 +9,7 @@ const Layout: BlitzLayout<{ title?: string }> = ({ title, children }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="block w-screen h-screen font-body dark:bg-gray-800 dark:text-white">
+      <main className="block min-h-screen min-w-screen font-body dark:bg-gray-800 dark:text-white">
         <Navbar />
         <div className="p-2">{children}</div>
         {/* <footer>
@@ -21,7 +21,7 @@ const Layout: BlitzLayout<{ title?: string }> = ({ title, children }) => {
             Powered by Blitz.js
           </a>
         </footer> */}
-      </div>
+      </main>
     </>
   );
 };

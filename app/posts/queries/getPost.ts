@@ -11,7 +11,10 @@ export default resolver.pipe(
   resolver.zod(GetPost),
   resolver.authorize(['VERIFIED', 'ADMIN']),
   async ({ id }) => {
-    const post = await db.post.findFirst({ where: { id } });
+    const post = await db.post.findFirst({
+      where: { id },
+      select: { user: true, content: true, id: true, title: true, image: true },
+    });
 
     if (!post) throw new NotFoundError();
 

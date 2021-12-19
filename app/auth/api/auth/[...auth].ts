@@ -59,6 +59,8 @@ export default passportAuth({
           const roles = newestPermission.map(({ role }) => role);
           let finalRole: Role;
 
+          console.log(roles);
+
           if (roles.includes('ADMIN')) finalRole = 'ADMIN';
           else if (roles.includes('VERIFIED')) finalRole = 'VERIFIED';
           else finalRole = 'NOT_VERIFIED';

@@ -7,7 +7,7 @@ export interface LabeledTextFieldProps extends PropsWithoutRef<JSX.IntrinsicElem
   /** Field label. */
   label: string;
   /** Field type. Doesn't include radio buttons and checkboxes */
-  type?: 'text' | 'password' | 'email' | 'number';
+  type?: 'text' | 'password' | 'email' | 'number' | 'bigtext';
   outerProps?: PropsWithoutRef<JSX.IntrinsicElements['div']>;
   labelProps?: ComponentPropsWithoutRef<'label'>;
   fieldProps?: UseFieldConfig<string>;
@@ -31,15 +31,26 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
 
     return (
       <div {...outerProps}>
-        <label {...labelProps} className="flex flex-col items-start">
+        <label {...labelProps} className="flex flex-col">
           {label}
-          <input
-            {...input}
-            disabled={submitting}
-            {...props}
-            ref={ref}
-            className="p-1 dark:text-black rounded-md border border-purple-500 mt-0.5"
-          />
+          {props.type === 'bigtext' ? (
+            <textarea
+              {...input}
+              disabled={submitting}
+              // {...props}
+              // ref={ref}
+              spellCheck={true}
+              className="resize p-1 dark:bg-gray-800 dark:text-white rounded-md border border-horz-green  mt-0.5"
+            />
+          ) : (
+            <input
+              {...input}
+              disabled={submitting}
+              {...props}
+              ref={ref}
+              className="p-1 dark:bg-gray-800 dark:text-white rounded-md border border-horz-green  mt-0.5"
+            />
+          )}
         </label>
 
         {touched && normalizedError && (

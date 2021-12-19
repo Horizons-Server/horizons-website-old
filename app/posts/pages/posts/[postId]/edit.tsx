@@ -1,10 +1,12 @@
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 import { Head, Link, useRouter, useQuery, useMutation, useParam, BlitzPage, Routes } from 'blitz';
 import Layout from 'app/core/layouts/Layout';
 import getPost from 'app/posts/queries/getPost';
 import updatePost from 'app/posts/mutations/updatePost';
 import { PostForm, FORM_ERROR } from 'app/posts/components/PostForm';
 import { UpdatePost } from 'app/posts/validations';
+import { FormSpy } from 'react-final-form';
+import PostBody from 'app/posts/components/Post';
 
 export const EditPost = () => {
   const router = useRouter();
@@ -18,47 +20,62 @@ export const EditPost = () => {
     },
   );
   const [updatePostMutation] = useMutation(updatePost);
+  const [md, setMd] = useState(post.content);
+  const [title, setTitle] = useState(post.title);
+  const [image, setImage] = useState(post.image);
 
   return (
     <>
       <Head>
-        <title>Edit Post {post.id}</title>
+        <title>Editing {title}</title>
       </Head>
 
       <div>
-        <h1>Edit Post {post.id}</h1>
-        <pre>{JSON.stringify(post, null, 2)}</pre>
-
-        <PostForm
-          submitText="Update Post"
-          // TODO use a zod schema for form validation
-          //  - Tip: extract mutation's schema into a shared `validations.ts` file and
-          //         then import and use it here
-          schema={UpdatePost}
-          initialValues={
-            post as Partial<{
-              image?: string | undefined;
-              id: number;
-              title: string;
-              content: string;
-            }>
-          }
-          onSubmit={async (values) => {
-            try {
-              const updated = await updatePostMutation({
-                ...values,
-                id: post.id,
-              });
-              //await setQueryData(updated);
-              router.push(Routes.ShowPostPage({ postId: updated.id }));
-            } catch (error: any) {
-              console.error(error);
-              return {
-                [FORM_ERROR]: error.toString(),
-              };
+        <div className="grid grid-cols-1 sm:grid-cols-2">
+          <PostBody
+            body={md}
+            author={post.user.name}
+            image={image ?? undefined}
+            title={title}
+            float="left"
+          />
+          <PostForm
+            submitText="Update Post"
+            // TODO use a zod schema for form validation
+            schema={UpdatePost}
+            initialValues={
+              post as Partial<{
+                image?: string | undefined;
+                id: number;
+                title: string;
+                content: string;
+              }>
             }
-          }}
-        />
+            onSubmit={async (values) => {
+              try {
+                const updated = await updatePostMutation({
+                  ...values,
+                  id: post.id,
+                });
+                await setQueryData(updated);
+                router.push(Routes.ShowPostPage({ postId: updated.id }));
+              } catch (error: any) {
+                console.error(error);
+                return {
+                  [FORM_ERROR]: error.toString(),
+                };
+              }
+            }}
+          >
+            <FormSpy
+              onChange={(e) => {
+                setMd(e.values['content']);
+                setTitle(e.values['title']);
+                setImage(e.values['image']);
+              }}
+            />
+          </PostForm>
+        </div>
       </div>
     </>
   );
@@ -70,12 +87,6 @@ const EditPostPage: BlitzPage = () => {
       <Suspense fallback={<div>Loading...</div>}>
         <EditPost />
       </Suspense>
-
-      <p>
-        <Link href={Routes.PostsPage()}>
-          <a>Posts</a>
-        </Link>
-      </p>
     </div>
   );
 };

@@ -18,9 +18,9 @@ const PostCard = ({ post }: Props) => {
     <Link href={Routes.ShowPostPage({ postId: post.id })}>
       <div className="p-2 rounded-md shadow-md dark:bg-gray-700">
         <strong>{post.title}</strong>
-        {post.image && (
-          <Image height={200} width={200} alt="heading photo of post" src={post.image} />
-        )}
+        <div className="relative h-5/6">
+          {post.image && <Image layout="fill" alt="heading photo of post" src={post.image} />}
+        </div>
         <div className="flex">
           <small className="flex-grow">By: {post.user.name}</small>
           <small className="">At: {moment(post.createdAt).format('MMM Do YY')}</small>

@@ -28,6 +28,7 @@ export function EventForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
         label="Associated Post"
         options={posts.posts.map((e) => ({ value: e.id, label: e.title }))}
       /> */}
+      {/** TODO make this work */}
       <Field name="userId" component="select">
         <option value={1}>Dog</option>
       </Field>

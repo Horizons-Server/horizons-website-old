@@ -1,13 +1,11 @@
 import { resolver } from 'blitz';
 import db from 'db';
-import { z } from 'zod';
 import { UpdateEvent } from '../validation';
 
 export default resolver.pipe(
   resolver.zod(UpdateEvent),
-  resolver.authorize(),
+  resolver.authorize('ADMIN'),
   async ({ id, ...data }) => {
-    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
     const event = await db.event.update({ where: { id }, data });
 
     return event;

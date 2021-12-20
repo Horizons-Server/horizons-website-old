@@ -7,11 +7,14 @@ const GetEvent = z.object({
   id: z.number().optional().refine(Boolean, 'Required'),
 });
 
-export default resolver.pipe(resolver.zod(GetEvent), resolver.authorize(), async ({ id }) => {
-  // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-  const event = await db.event.findFirst({ where: { id } });
+export default resolver.pipe(
+  resolver.zod(GetEvent),
+  resolver.authorize(['ADMIN', 'VERIFIED']),
+  async ({ id }) => {
+    const event = await db.event.findFirst({ where: { id } });
 
-  if (!event) throw new NotFoundError();
+    if (!event) throw new NotFoundError();
 
-  return event;
-});
+    return event;
+  },
+);

@@ -5,9 +5,8 @@ interface GetEventsInput
   extends Pick<Prisma.EventFindManyArgs, 'where' | 'orderBy' | 'skip' | 'take'> {}
 
 export default resolver.pipe(
-  resolver.authorize(),
+  resolver.authorize(['VERIFIED', 'ADMIN']),
   async ({ where, orderBy, skip = 0, take = 100 }: GetEventsInput) => {
-    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
     const {
       items: events,
       hasMore,

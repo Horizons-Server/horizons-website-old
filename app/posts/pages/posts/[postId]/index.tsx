@@ -5,7 +5,7 @@ import getPost from 'app/posts/queries/getPost';
 import deletePost from 'app/posts/mutations/deletePost';
 import ReactMarkdown from 'react-markdown';
 import { useCurrentUser } from 'app/core/hooks/useCurrentUser';
-import PostBody from 'app/posts/components/Post';
+import PostBody from 'app/posts/components/PostBody';
 
 export const Post = () => {
   const router = useRouter();
@@ -25,7 +25,6 @@ export const Post = () => {
 
         {user?.role === 'ADMIN' && (
           <>
-            {' '}
             <Link href={Routes.EditPostPage({ postId: post.id })}>
               <a className="p-2 rounded-md shadow-md bg-horz-green">Edit</a>
             </Link>

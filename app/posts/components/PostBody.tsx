@@ -15,7 +15,7 @@ const PostBody = ({ image, body, title, author, float }: Props) => {
         float === 'center' ? 'items-center' : float === 'right' ? 'items-end' : 'items-start'
       }`}
     >
-      <div className="prose dark:prose-invert">
+      <div className="prose dark:prose-invert prose-emerald">
         {/** put your image stuff here */}
         <div>
           <h1>{title}</h1>

@@ -54,7 +54,7 @@ model Post {
   updatedAt DateTime @updatedAt
   content   String
   image     String?
-  title     String
+  title     String   @unique
 
   userId Int
   user   User    @relation(fields: [userId], references: [id])
@@ -75,8 +75,8 @@ model Event {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   date        DateTime
-  description String
-  title       String
+  description String?
+  title       String   @unique
 
   userId Int?
   postId Int?

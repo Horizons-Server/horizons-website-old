@@ -5,7 +5,7 @@ import { PostForm, FORM_ERROR } from 'app/posts/components/PostForm';
 import { CreatePost } from 'app/posts/validations';
 import { useState } from 'react';
 import { FormSpy } from 'react-final-form';
-import PostBody from 'app/posts/components/Post';
+import PostBody from 'app/posts/components/PostBody';
 
 const NewPostPage: BlitzPage = () => {
   const router = useRouter();
@@ -16,8 +16,7 @@ const NewPostPage: BlitzPage = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-1 sm:grid-cols-2">
-        <PostBody body={md} title={title} image={image} author={'John Doe'} float="left" />
+      <div className="grid h-full grid-cols-1 sm:grid-cols-2">
         <PostForm
           submitText="Create Post"
           // TODO use a zod schema for form validation
@@ -45,6 +44,7 @@ const NewPostPage: BlitzPage = () => {
             }}
           />
         </PostForm>
+        <PostBody body={md} title={title} image={image} author={'John Doe'} float="left" />
       </div>
     </div>
   );

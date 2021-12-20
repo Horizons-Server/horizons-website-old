@@ -1,11 +1,7 @@
 import { resolver } from 'blitz';
 import db from 'db';
 import { z } from 'zod';
-
-const UpdateEvent = z.object({
-  id: z.number(),
-  name: z.string(),
-});
+import { UpdateEvent } from '../validation';
 
 export default resolver.pipe(
   resolver.zod(UpdateEvent),

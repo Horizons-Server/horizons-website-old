@@ -6,7 +6,7 @@ import updatePost from 'app/posts/mutations/updatePost';
 import { PostForm, FORM_ERROR } from 'app/posts/components/PostForm';
 import { UpdatePost } from 'app/posts/validations';
 import { FormSpy } from 'react-final-form';
-import PostBody from 'app/posts/components/Post';
+import PostBody from 'app/posts/components/PostBody';
 
 export const EditPost = () => {
   const router = useRouter();

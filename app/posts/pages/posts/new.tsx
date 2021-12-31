@@ -19,11 +19,7 @@ const NewPostPage: BlitzPage = () => {
       <div className="grid h-full grid-cols-1 sm:grid-cols-2">
         <PostForm
           submitText="Create Post"
-          // TODO use a zod schema for form validation
-          //  - Tip: extract mutation's schema into a shared `validations.ts` file and
-          //         then import and use it here
           schema={CreatePost}
-          // initialValues={{}}
           onSubmit={async (values) => {
             try {
               const post = await createPostMutation(values);

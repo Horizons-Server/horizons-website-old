@@ -43,7 +43,7 @@ export function Form<S extends z.ZodType<any, any>>({
             <button
               type="submit"
               disabled={submitting}
-              className="p-2 mt-1 rounded-md bg-horz-green"
+              className="p-2 mt-1 text-white rounded-md bg-horz-green"
             >
               {submitText}
             </button>

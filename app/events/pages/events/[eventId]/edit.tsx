@@ -4,6 +4,7 @@ import Layout from 'app/core/layouts/Layout';
 import getEvent from 'app/events/queries/getEvent';
 import updateEvent from 'app/events/mutations/updateEvent';
 import { EventForm, FORM_ERROR } from 'app/events/components/EventForm';
+import { EventFormObject } from 'app/events/validation';
 
 export const EditEvent = () => {
   const router = useRouter();
@@ -33,13 +34,22 @@ export const EditEvent = () => {
           // TODO use a zod schema for form validation
           //  - Tip: extract mutation's schema into a shared `validations.ts` file and
           //         then import and use it here
-          // schema={UpdateEvent}
+          schema={EventFormObject}
           initialValues={event}
           onSubmit={async (values) => {
+            const date = values.day;
+
+            date.setHours(date.getHours() + values.hours);
+            date.setMinutes(date.getMinutes() + values.minutes);
+
             try {
               const updated = await updateEventMutation({
                 id: event.id,
-                ...values,
+                userId: values.userId,
+                postId: values.postId,
+                title: values.title,
+                description: values.description,
+                date: date,
               });
               await setQueryData(updated);
               router.push(Routes.ShowEventPage({ eventId: updated.id }));

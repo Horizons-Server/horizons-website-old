@@ -60,7 +60,6 @@ export const EditPost = () => {
                 await setQueryData(updated);
                 router.push(Routes.ShowPostPage({ postId: updated.id }));
               } catch (error: any) {
-                console.error(error);
                 return {
                   [FORM_ERROR]: error.toString(),
                 };

@@ -26,10 +26,10 @@ export const Post = () => {
         {user?.role === 'ADMIN' && (
           <>
             <Link href={Routes.EditPostPage({ postId: post.id })}>
-              <a className="p-2 rounded-md shadow-md bg-horz-green">Edit</a>
+              <a className="p-2 text-white rounded-md shadow-md bg-horz-green">Edit</a>
             </Link>
             <button
-              className="p-2 ml-1 rounded-md shadow-md bg-horz-green"
+              className="p-2 ml-1 text-white rounded-md shadow-md bg-horz-green"
               type="button"
               onClick={async () => {
                 if (window.confirm('This will be deleted')) {

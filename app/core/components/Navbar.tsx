@@ -3,7 +3,7 @@ import Logo from 'public/HorizonsLogo.svg';
 
 const Navbar = () => {
   return (
-    <div className="relative z-50 flex h-12 mt-0 bg-horz-blue">
+    <div className="fixed z-50 flex w-full h-12 mt-0 text-white bg-horz-blue">
       {/* <Image alt="logo" src={Logo} layout="fill" className="" /> */}
       <div className="flex p-2 hover:bg-horz-green">
         <Link href={Routes.PostsPage()}>

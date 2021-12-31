@@ -1,4 +1,4 @@
-import { Intents } from 'discord.js';
+import { GuildMember, Intents } from 'discord.js';
 import { Client } from 'discordx';
 
 const client = new Client({
@@ -12,14 +12,19 @@ export const fetchRoles = async ({ userId }: { userId: string }) => {
 
   if (!guild) return new Error('Discord Server verification down.');
 
-  const guildUser = await guild.members.fetch({
-    force: true,
-    user: userId,
-    cache: true,
-  });
+  let guildUser: GuildMember;
+
+  try {
+    guildUser = await guild.members.fetch({
+      force: true,
+      user: userId,
+      cache: true,
+    });
+  } catch {
+    return new Error('You are not in the server.');
+  }
 
   const roles = guildUser.roles.cache.map(({ name }) => name);
-  console.log(roles);
   client.destroy();
 
   return roles;

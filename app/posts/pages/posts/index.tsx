@@ -31,18 +31,20 @@ export const PostsList = () => {
       <div className="flex gap-2 mt-2">
         {user?.role === 'ADMIN' && (
           <Link href={Routes.NewPostPage()}>
-            <button className="p-2 rounded-md shadow-md bg-horz-green">Create New Post</button>
+            <button className="p-2 text-white rounded-md shadow-md bg-horz-green">
+              Create New Post
+            </button>
           </Link>
         )}
         <button
-          className="p-2 rounded-md shadow-md bg-horz-green"
+          className="p-2 text-white rounded-md shadow-md bg-horz-green"
           disabled={page === 0}
           onClick={goToPreviousPage}
         >
           Previous
         </button>
         <button
-          className="p-2 rounded-md shadow-md bg-horz-green"
+          className="p-2 text-white rounded-md shadow-md bg-horz-green"
           disabled={!hasMore}
           onClick={goToNextPage}
         >

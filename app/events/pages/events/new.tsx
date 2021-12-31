@@ -3,7 +3,7 @@ import Layout from 'app/core/layouts/Layout';
 import createEvent from 'app/events/mutations/createEvent';
 import { EventForm, FORM_ERROR } from 'app/events/components/EventForm';
 import { Suspense } from 'react';
-import { CreateEvent } from 'app/events/validation';
+import { CreateEvent, EventFormObject } from 'app/events/validation';
 
 const NewEvent = () => {
   const router = useRouter();
@@ -15,12 +15,22 @@ const NewEvent = () => {
 
       <EventForm
         submitText="Create Event"
-        // schema={CreateEvent}
-        // initialValues={{}}
+        schema={EventFormObject}
         onSubmit={async (values) => {
           console.log(values);
+          const date = values.day;
+
+          date.setHours(values.hours);
+          date.setMinutes(values.minutes);
+
           try {
-            const event = await createEventMutation(values);
+            const event = await createEventMutation({
+              userId: values.userId,
+              postId: values.postId,
+              title: values.title,
+              description: values.description,
+              date: date,
+            });
             router.push(Routes.ShowEventPage({ eventId: event.id }));
           } catch (error: any) {
             console.error(error);

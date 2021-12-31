@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef } from 'react';
 import Calendar, { CalendarProps } from 'react-calendar';
-import { Field } from 'react-final-form';
+import { Field, useField } from 'react-final-form';
 
 import 'react-calendar/dist/Calendar.css';
 
@@ -19,12 +19,33 @@ export const LabeledCalendarField = ({
   calendarProps,
   labelProps,
 }: LabeledCalendarFieldProps) => {
+  const {
+    input,
+    meta: { touched, error, submitError, submitting },
+  } = useField(name, {});
+
+  const normalizedError = Array.isArray(error) ? error.join(', ') : error || submitError;
+
   return (
-    <label {...labelProps} className={className}>
-      {label}
-      <Field name={name}>
-        {(props) => <Calendar {...calendarProps} {...props.input} className={'text-black'} />}
-      </Field>
-    </label>
+    <div>
+      <label {...labelProps} className={className}>
+        {label}
+        <Field {...input} disabled={submitting}>
+          {(props) => (
+            <Calendar
+              {...calendarProps}
+              value={props.input.value}
+              onChange={props.input.onChange}
+              className={'text-black'}
+            />
+          )}
+        </Field>
+      </label>
+      {touched && normalizedError && (
+        <div role="alert" style={{ color: 'red' }}>
+          {normalizedError}
+        </div>
+      )}
+    </div>
   );
 };

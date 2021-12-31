@@ -35,7 +35,12 @@ export const EditEvent = () => {
           //  - Tip: extract mutation's schema into a shared `validations.ts` file and
           //         then import and use it here
           schema={EventFormObject}
-          initialValues={event}
+          initialValues={{
+            ...event,
+            userId: Number(event.userId),
+            description: String(event.description),
+            postId: Number(event.postId),
+          }}
           onSubmit={async (values) => {
             const date = values.day;
 

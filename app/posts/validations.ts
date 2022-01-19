@@ -6,9 +6,6 @@ export const CreatePost = z.object({
   image: z.string().url().optional(),
 });
 
-export const UpdatePost = z.object({
+export const UpdatePost = CreatePost.partial().extend({
   id: z.number(),
-  title: z.string(),
-  content: z.string(),
-  image: z.string().url().optional(),
 });

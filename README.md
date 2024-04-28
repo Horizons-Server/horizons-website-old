@@ -1,3 +1,5 @@
+# This repository has been replaced by [horizons-website](https://github.com/Horizons-Server/horizons-website).
+
 [![Blitz.js](https://raw.githubusercontent.com/blitz-js/art/master/github-cover-photo.png)](https://blitzjs.com)
 
 This is a [Blitz.js](https://github.com/blitz-js/blitz) app.
